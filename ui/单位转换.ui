@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>widget</class>
+ <widget class="QWidget" name="widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>370</width>
+    <height>130</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>400</width>
+    <height>130</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>单位转换</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* 设置窗口背景颜色 */
+QWidget {
+    background-color: #ffffff;
+}
+
+/* 设置标签样式 */
+QLabel {
+    color: #333333; /* 文字颜色 */
+    font-size: 16px; /* 字体大小 */
+    padding: 10px; /* 内边距 */
+}
+
+/* 设置按钮样式 */
+QPushButton {
+    border-radius: 19px; /* 圆角半径 */
+    background-color: #EDEDED; /* 背景颜色 */
+    color: #333333; /* 文字颜色 */
+    font-size: 14px; /* 字体大小 */
+    padding: 8px 16px; /* 内边距 */
+    margin: 10px; /* 外边距 */
+}
+
+/* 按钮悬停效果 */
+QPushButton:hover {
+    background-color: #DADADA;
+}
+
+/* 按钮按下效果 */
+QPushButton:pressed {
+    background-color: #CFCFCF;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QComboBox" name="lengthOrWeight">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 0, 4);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="input1">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(255, 0, 255);font: 9pt &quot;幼圆&quot;;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="option1">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(73, 255, 17);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="input2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(255, 0, 255);font: 9pt &quot;幼圆&quot;;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="option2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+color: rgb(0, 255, 127);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
