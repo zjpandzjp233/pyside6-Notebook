@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication,QWidget,QVBoxLayout,QPushButton,QLabel,QLineEdit
+from PySide6.QtWidgets import QApplication,QMainWindow,QWidget,QVBoxLayout,QPushButton,QLabel,QLineEdit
 from PySide6.QtGui import QShortcut,QMouseEvent, QPainter,QKeySequence,QColor,QFont,QPen,QPolygon,QImage,QBrush,QPixmap
 from PySide6.QtCore import Qt,QRect,QPoint
 import math
@@ -8,6 +8,10 @@ class Mywindow(QWidget):
     def __init__(self):
         super().__init__()
         os.chdir(os.path.dirname(os.path.abspath(__file__)))# 将工作目录设置为代码所在的文件夹里面，不然就在vscode选择打开的文件夹上
+        # 确保窗口获得初始焦点
+        self.setFocus()
+        # 连接应用程序的焦点变化信号
+        QApplication.instance().focusChanged.connect(self.on_focus_changed)
         self.resize(600,630)
         self.pix=QPixmap(600,600)# 默认透明
         self.pix.fill(Qt.white)
@@ -27,18 +31,35 @@ class Mywindow(QWidget):
         self.shortcut.activated.connect(self.savePix)
         self.shortcut = QShortcut(QKeySequence('Ctrl+Z'), self)
         self.shortcut.activated.connect(self.clearPix)
+    def leaveEvent(self, event):
+        """鼠标离开窗口时触发"""
+        self.i=0
+        print("Mouse left the window")
+        super().leaveEvent(event)
+
+    def focusOutEvent(self, event):
+        """窗口失去焦点时触发"""
+        self.i=0
+        print("Window lost focus")
+        super().focusOutEvent(event)
+
+    def on_focus_changed(self, old_widget, new_widget):
+        """应用程序焦点变化时触发"""
+        if old_widget == self and new_widget != self:
+            self.i=0
+            print("Window lost focus (via focusChanged)")
     def clearPix(self):
-        self.pix.fill(Qt.transparent)
+        self.pix.fill(Qt.white)
         self.i=0
         self.update()
     def savePix(self):
         self.i2=str(self.i2)
         fileName=self.labo.text()
-        self.pix.save(r"C:\Users\机械革命\Desktop\HTML\Python\pyside6\pyside6_advance\数字图片"+'\\'+fileName+'_'+self.i2+'.png','PNG')
+        self.pix.save('./'+fileName+'_'+self.i2+'.png','PNG')
         self.i2=int(self.i2)
         self.i2+=1
     def paintEvent(self,event):
-        if self.i<3:
+        if self.i<2:
             self.i+=1
             return
         painter1=QPainter(self.pix) # 创建了一个 `QPainter` 实例 `pp`，并将 `self.pix` 作为目标对象。这里的 `self.pix` 应该是一个 `QPixmap` 对象，用于保存绘制的内容。
