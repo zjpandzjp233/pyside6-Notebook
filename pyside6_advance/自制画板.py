@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QApplication,QWidget,QVBoxLayout
-from PySide6.QtGui import QMouseEvent, QPainter,QColor,QFont,QPen,QPolygon,QImage,QBrush,QPixmap
+import sys
+from PySide6.QtWidgets import QApplication,QWidget,QVBoxLayout,QPushButton,QLabel,QLineEdit
+from PySide6.QtGui import QShortcut,QMouseEvent, QPainter,QKeySequence,QColor,QFont,QPen,QPolygon,QImage,QBrush,QPixmap
 from PySide6.QtCore import Qt,QRect,QPoint
 import math
 import os
@@ -7,15 +8,37 @@ class Mywindow(QWidget):
     def __init__(self):
         super().__init__()
         os.chdir(os.path.dirname(os.path.abspath(__file__)))# 将工作目录设置为代码所在的文件夹里面，不然就在vscode选择打开的文件夹上
-        self.resize(600,600)
+        self.resize(600,630)
         self.pix=QPixmap(600,600)# 默认透明
         self.pix.fill(Qt.white)
         self.point1=QPoint()
         self.point0=QPoint()
-        self.i=1
-
+        self.i=0
+        self.butt=QPushButton('保存图片(Ctrl+X)',self)
+        self.butt.clicked.connect(self.savePix)
+        self.butt.setGeometry(0,600,150,30)
+        self.butt=QPushButton('清空图片(Ctrl+Z)',self)
+        self.butt.clicked.connect(self.clearPix)
+        self.butt.setGeometry(151,600,150,30)
+        self.labo=QLineEdit(self)
+        self.labo.setGeometry(301,600,299,30)
+        self.i2=1
+        self.shortcut = QShortcut(QKeySequence('Ctrl+X'), self)
+        self.shortcut.activated.connect(self.savePix)
+        self.shortcut = QShortcut(QKeySequence('Ctrl+Z'), self)
+        self.shortcut.activated.connect(self.clearPix)
+    def clearPix(self):
+        self.pix.fill(Qt.transparent)
+        self.i=0
+        self.update()
+    def savePix(self):
+        self.i2=str(self.i2)
+        fileName=self.labo.text()
+        self.pix.save(r"C:\Users\机械革命\Desktop\HTML\Python\pyside6\pyside6_advance\数字图片"+'\\'+fileName+'_'+self.i2+'.png','PNG')
+        self.i2=int(self.i2)
+        self.i2+=1
     def paintEvent(self,event):
-        if self.i==1:
+        if self.i<3:
             self.i+=1
             return
         painter1=QPainter(self.pix) # 创建了一个 `QPainter` 实例 `pp`，并将 `self.pix` 作为目标对象。这里的 `self.pix` 应该是一个 `QPixmap` 对象，用于保存绘制的内容。
